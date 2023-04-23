@@ -3,7 +3,7 @@ import ShoppingCartItems from "../common/ShoppingCartItems";
 import { useAppSelector } from "../state/store";
 
 const ShoppingCart: React.FC<{}> = () => {
-  const stateItems = useAppSelector((state) => state.items);
+  const stateItems = useAppSelector((state) => state.shoppingCart.items);
 
   //   tablice obiektow:  {
   //     title: string;

@@ -47,7 +47,7 @@ const headerLinkStyle = {
 const Page = () => {
   const isBigScreen = useMediaQuery({ query: "(min-width: 800px)" });
   const numberOfAlbumsInShoppingCart = useAppSelector(
-    (state) => state.items.length
+    (state) => state.shoppingCart.items.length
   );
 
   return (

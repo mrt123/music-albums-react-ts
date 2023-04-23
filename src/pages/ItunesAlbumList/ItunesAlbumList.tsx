@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Album from "../../common/musicAlbum/Album";
 import CircleLoader from "../../common/CircleLoader";
 import PageTitle from "../../common/PageTitle";
@@ -6,6 +6,11 @@ import {
   getAlbumsFromItunesAlbumData,
   ItunesAlbumDataEntry,
 } from "./itunesDataTransformer";
+import { useAppDispatch, useAppSelector } from "../../state/store";
+import {
+  requestFetchingOfALbums,
+  setFetchAlbumsSuccess,
+} from "../../state/itunesAlbumsDataSlice";
 
 const addDelay = () => {
   return new Promise((resolve) =>
@@ -22,9 +27,9 @@ interface ItunesTopAlbumsResponseData {
 }
 
 const ItunesAlbumList = () => {
-  const [albumDataEntries, setAlbumDataEntries] = useState<
-    ItunesAlbumDataEntry[] | null
-  >(null);
+  const albumsData = useAppSelector((state) => state.itunesAlbumsData);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchAndSetAlbums = async () => {
@@ -37,16 +42,14 @@ const ItunesAlbumList = () => {
       const fetchedData =
         (await fetchResponse.json()) as ItunesTopAlbumsResponseData;
 
-      console.log({ fetchedData });
-      setAlbumDataEntries(fetchedData.feed.entry);
+      dispatch(setFetchAlbumsSuccess({ data: fetchedData.feed.entry }));
     };
 
     fetchAndSetAlbums();
-  }, []);
+    dispatch(requestFetchingOfALbums());
+  }, [dispatch]);
 
-  const albumData = albumDataEntries
-    ? getAlbumsFromItunesAlbumData(albumDataEntries)
-    : [];
+  const albumData = getAlbumsFromItunesAlbumData(albumsData.data);
 
   const albumComponents = albumData.map((album) => {
     return (
@@ -62,7 +65,7 @@ const ItunesAlbumList = () => {
   return (
     <>
       <PageTitle title="Top Albums" />
-      <CircleLoader show={albumDataEntries === null} />
+      <CircleLoader show={albumsData.loading} />
       {albumComponents}
     </>
   );

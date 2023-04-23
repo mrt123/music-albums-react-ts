@@ -1,11 +1,16 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
-import shoppingCart from "./shoppingCartSlice";
+import thunk from "redux-thunk";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import shoppingCart from "./shoppingCartSlice";
+import itunesAlbumsDataSlice from "./itunesAlbumsDataSlice";
 
 const store = configureStore({
-  reducer: shoppingCart.reducer,
-  middleware: [logger],
+  reducer: combineReducers({
+    shoppingCart: shoppingCart.reducer,
+    itunesAlbumsData: itunesAlbumsDataSlice.reducer,
+  }),
+  middleware: [thunk, logger],
 });
 
 export default store;
