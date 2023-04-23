@@ -1,9 +1,12 @@
 import PageTitle from "../common/PageTitle";
 import ShoppingCartItems from "../common/ShoppingCartItems";
-import { useAppSelector } from "../state/store";
+import { ShoppingCartState } from "../state/shoppingCartSlice";
+import { RootState, useAppSelector } from "../state/store";
 
 const ShoppingCart: React.FC<{}> = () => {
-  const stateItems = useAppSelector((state) => state.shoppingCart.items);
+  const stateItems = useAppSelector(
+    (state: RootState) => state.shoppingCart.items as ShoppingCartState["items"]
+  );
 
   //   tablice obiektow:  {
   //     title: string;

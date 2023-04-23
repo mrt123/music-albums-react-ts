@@ -5,7 +5,7 @@ interface Album {
   price: number;
 }
 
-interface ShoppingCartState {
+export interface ShoppingCartState {
   items: Album[];
 }
 

@@ -1,6 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
-import thunk from "redux-thunk";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import shoppingCart from "./shoppingCartSlice";
 import itunesAlbumsDataSlice from "./itunesAlbumsDataSlice";
@@ -10,7 +9,7 @@ const store = configureStore({
     shoppingCart: shoppingCart.reducer,
     itunesAlbumsData: itunesAlbumsDataSlice.reducer,
   }),
-  middleware: [thunk, logger],
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
 export default store;

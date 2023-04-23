@@ -8,3 +8,11 @@ const fakeFetch = (rawData: any) => {
 };
 
 export default fakeFetch;
+
+export const addDelay = () => {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve(null);
+    }, 1000)
+  );
+};
