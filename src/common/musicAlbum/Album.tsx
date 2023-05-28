@@ -1,4 +1,4 @@
-import { incremented, useAppDispatch } from "../..";
+import { incremented, useAppDispatch, useAppSelector } from "../..";
 import AlbumDescription, { AlbumDescriptionProps } from "./AlbumDescription";
 import AlbumImage from "./AlbumImage";
 import AlbumNumber from "./AlbumNumber";
@@ -25,6 +25,8 @@ const Album = ({ number, coverImageUrl, description }: AlbumProps) => {
     dispatch(incremented());
   };
 
+  const value = useAppSelector((state) => state.counter.value);
+
   return (
     <div style={albumStyle}>
       <AlbumNumber value={number} />
@@ -34,7 +36,7 @@ const Album = ({ number, coverImageUrl, description }: AlbumProps) => {
         artist={description.artist}
         price={description.price}
       />
-      <button onClick={onButtonClick}>button</button>
+      <button onClick={onButtonClick}>{value}</button>
     </div>
   );
 };

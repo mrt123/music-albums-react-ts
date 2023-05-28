@@ -56,7 +56,9 @@ const counterSlice = createSlice({
 });
 
 const store = configureStore({
-  reducer: counterSlice.reducer,
+  reducer: {
+    counter: counterSlice.reducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
