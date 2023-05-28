@@ -1,3 +1,4 @@
+import { incremented, useAppDispatch } from "../..";
 import AlbumDescription, { AlbumDescriptionProps } from "./AlbumDescription";
 import AlbumImage from "./AlbumImage";
 import AlbumNumber from "./AlbumNumber";
@@ -18,6 +19,12 @@ export interface AlbumProps {
 }
 
 const Album = ({ number, coverImageUrl, description }: AlbumProps) => {
+  const dispatch = useAppDispatch();
+
+  const onButtonClick = () => {
+    dispatch(incremented());
+  };
+
   return (
     <div style={albumStyle}>
       <AlbumNumber value={number} />
@@ -27,6 +34,7 @@ const Album = ({ number, coverImageUrl, description }: AlbumProps) => {
         artist={description.artist}
         price={description.price}
       />
+      <button onClick={onButtonClick}>button</button>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React from "react";
 import NavBar from "./NavBar";
 import { Link, Outlet } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import { useAppSelector } from "..";
 
 const getPageStyle = (isBigScreen: boolean) => {
   const bigScreenAreas = `
@@ -45,6 +46,7 @@ const headerLinkStyle = {
 
 const Page = () => {
   const isBigScreen = useMediaQuery({ query: "(min-width: 800px)" });
+  const value = useAppSelector((state) => state.value);
 
   return (
     <div style={getPageStyle(isBigScreen)}>
@@ -52,6 +54,7 @@ const Page = () => {
         <Link to="/" style={headerLinkStyle}>
           Music Albums
         </Link>
+        <span>{value}</span>
       </header>
       <NavBar />
       <section style={sectionStyle}>
