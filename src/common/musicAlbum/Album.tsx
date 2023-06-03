@@ -25,7 +25,10 @@ const Album = ({ number, coverImageUrl, description }: AlbumProps) => {
 
   const onButtonClick = () => {
     dispatch(
-      shoppingCartSlice.actions.addItem({ price: 1, label: "Jakis Label" })
+      shoppingCartSlice.actions.addItem({
+        price: description.price,
+        label: description.title,
+      })
     );
   };
 
