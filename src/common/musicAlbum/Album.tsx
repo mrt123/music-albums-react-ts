@@ -28,6 +28,7 @@ const Album = ({ number, coverImageUrl, description }: AlbumProps) => {
       shoppingCartSlice.actions.addItem({
         price: description.price,
         label: description.title,
+        imageUrl: coverImageUrl,
       })
     );
   };

@@ -13,7 +13,7 @@ import {
   useSelector,
 } from "react-redux";
 import store from "./state/store";
-import ShoppingCart from "./common/ShoppingCart";
+import ShoppingCart from "./common/shopping/ShoppingCart";
 
 const router = createBrowserRouter([
   {

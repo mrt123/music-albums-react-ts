@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 interface ShoppingCartItem {
   price: number;
   label: string;
+  imageUrl: string | undefined;
 }
 
 interface ShoppingCartState {

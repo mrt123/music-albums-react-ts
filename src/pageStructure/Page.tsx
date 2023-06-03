@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 import { Link, Outlet } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { useAppSelector } from "..";
-import ShoppingCartIcon from "../common/ShoppingCartIcon";
+import ShoppingCartIcon from "../common/shopping/ShoppingCartIcon";
 
 const getPageStyle = (isBigScreen: boolean) => {
   const bigScreenAreas = `
