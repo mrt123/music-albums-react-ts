@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import { Link, Outlet } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { useAppSelector } from "..";
+import ShoppingCartIcon from "../common/ShoppingCartIcon";
 
 const getPageStyle = (isBigScreen: boolean) => {
   const bigScreenAreas = `
@@ -54,7 +55,7 @@ const Page = () => {
         <Link to="/" style={headerLinkStyle}>
           Music Albums
         </Link>
-        <span>value z reduxa: {value}</span>
+        <ShoppingCartIcon numberOfItems={value} />
       </header>
       <NavBar />
       <section style={sectionStyle}>
