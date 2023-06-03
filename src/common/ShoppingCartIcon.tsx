@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 interface Props {
   numberOfItems: number;
 }
@@ -9,11 +11,15 @@ const numerOfItemsStyle = {
   border: "2px solid black",
 };
 
+const linkStyle = {
+  textDecoration: "none",
+};
+
 const ShoppingCartIcon = ({ numberOfItems }: Props) => {
   return (
-    <div>
+    <Link to="/shopping-cart" style={linkStyle}>
       🛒<span style={numerOfItemsStyle}>{numberOfItems}</span>
-    </div>
+    </Link>
   );
 };
 

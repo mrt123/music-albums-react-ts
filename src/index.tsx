@@ -13,6 +13,7 @@ import {
   useSelector,
 } from "react-redux";
 import store from "./state/store";
+import ShoppingCart from "./common/ShoppingCart";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/our-albums",
         element: <OurAlbums />,
+      },
+      {
+        path: "/shopping-cart",
+        element: <ShoppingCart />,
       },
     ],
   },
