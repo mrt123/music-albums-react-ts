@@ -1,4 +1,5 @@
-import { incremented, useAppDispatch, useAppSelector } from "../..";
+import { useAppDispatch, useAppSelector } from "../..";
+import { increment } from "../../state/counterSlice";
 import AlbumDescription, { AlbumDescriptionProps } from "./AlbumDescription";
 import AlbumImage from "./AlbumImage";
 import AlbumNumber from "./AlbumNumber";
@@ -22,7 +23,7 @@ const Album = ({ number, coverImageUrl, description }: AlbumProps) => {
   const dispatch = useAppDispatch();
 
   const onButtonClick = () => {
-    dispatch(incremented());
+    dispatch(increment()); // same as dispatch({ type: 'increment'}) with supporting reducer
   };
 
   const value = useAppSelector((state) => state.counter.value);

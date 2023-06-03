@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import HomePage from "./pages/HomePage";
@@ -13,7 +12,7 @@ import {
   useDispatch,
   useSelector,
 } from "react-redux";
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import store from "./state/store";
 
 const router = createBrowserRouter([
   {
@@ -40,34 +39,11 @@ const router = createBrowserRouter([
   },
 ]);
 
-const counterSlice = createSlice({
-  name: "counter",
-  initialState: {
-    value: 0,
-  },
-  reducers: {
-    incremented: (state) => {
-      state.value += 1;
-    },
-    decremented: (state) => {
-      state.value -= 1;
-    },
-  },
-});
-
-const store = configureStore({
-  reducer: {
-    counter: counterSlice.reducer,
-  },
-});
-
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-
-export const { incremented, decremented } = counterSlice.actions;
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <Provider store={store}>
