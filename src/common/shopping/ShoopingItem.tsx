@@ -25,6 +25,7 @@ const priceStyle = {
   display: "inline-block",
   padding: "10px",
   color: "yellow",
+  fontSize: "18px",
 };
 
 const itemWrapperStyle = {
