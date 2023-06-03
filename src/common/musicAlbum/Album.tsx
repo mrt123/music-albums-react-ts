@@ -1,5 +1,6 @@
-import { useAppDispatch, useAppSelector } from "../..";
-import { increment } from "../../state/counterSlice";
+import { useAppDispatch } from "../..";
+import shoppingCartSlice from "../../state/shoppingCartSlice";
+import AddToCartButton from "../AddToCartButton";
 import AlbumDescription, { AlbumDescriptionProps } from "./AlbumDescription";
 import AlbumImage from "./AlbumImage";
 import AlbumNumber from "./AlbumNumber";
@@ -23,10 +24,10 @@ const Album = ({ number, coverImageUrl, description }: AlbumProps) => {
   const dispatch = useAppDispatch();
 
   const onButtonClick = () => {
-    dispatch(increment()); // same as dispatch({ type: 'increment'}) with supporting reducer
+    dispatch(
+      shoppingCartSlice.actions.addItem({ price: 1, label: "Jakis Label" })
+    );
   };
-
-  const value = useAppSelector((state) => state.counter.value);
 
   return (
     <div style={albumStyle}>
@@ -37,7 +38,7 @@ const Album = ({ number, coverImageUrl, description }: AlbumProps) => {
         artist={description.artist}
         price={description.price}
       />
-      <button onClick={onButtonClick}>{value}</button>
+      <AddToCartButton onClick={onButtonClick} />
     </div>
   );
 };
