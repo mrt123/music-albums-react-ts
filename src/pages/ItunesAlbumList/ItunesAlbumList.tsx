@@ -6,6 +6,8 @@ import {
   getAlbumsFromItunesAlbumData,
   ItunesAlbumDataEntry,
 } from "./itunesDataTransformer";
+import albumsSlice from "../../state/itunesAlbumsDataSlice";
+import { useAppDispatch } from "../..";
 
 const addDelay = () => {
   return new Promise((resolve) =>
@@ -26,8 +28,12 @@ const ItunesAlbumList = () => {
     ItunesAlbumDataEntry[] | null
   >(null);
 
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     const fetchAndSetAlbums = async () => {
+      dispatch(albumsSlice.actions.requestData());
+
       const fetchResponse = await fetch(
         "https://itunes.apple.com/us/rss/topalbums/limit=100/json"
       );
@@ -37,12 +43,12 @@ const ItunesAlbumList = () => {
       const fetchedData =
         (await fetchResponse.json()) as ItunesTopAlbumsResponseData;
 
-      console.log({ fetchedData });
+      dispatch(albumsSlice.actions.addData(fetchedData.feed.entry));
       setAlbumDataEntries(fetchedData.feed.entry);
     };
 
     fetchAndSetAlbums();
-  }, []);
+  }, [dispatch]);
 
   const albumData = albumDataEntries
     ? getAlbumsFromItunesAlbumData(albumDataEntries)
