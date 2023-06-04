@@ -22,7 +22,7 @@ const ShoppingCart = () => {
       <div style={summaryStyle}>
         Number of items: {shoppingCartItems.length}
       </div>
-      <div style={summaryStyle}>Total price: {totalPrice}</div>
+      <div style={summaryStyle}>Total price: {totalPrice.toFixed(2)}</div>
     </>
   );
 };

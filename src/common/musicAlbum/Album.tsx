@@ -23,7 +23,7 @@ export interface AlbumProps {
 const Album = ({ number, coverImageUrl, description }: AlbumProps) => {
   const dispatch = useAppDispatch();
 
-  const onButtonClick = () => {
+  const addItemToShoppingCart = () => {
     dispatch(
       shoppingCartSlice.actions.addItem({
         price: description.price,
@@ -42,7 +42,7 @@ const Album = ({ number, coverImageUrl, description }: AlbumProps) => {
         artist={description.artist}
         price={description.price}
       />
-      <AddToCartButton onClick={onButtonClick} />
+      <AddToCartButton onClick={addItemToShoppingCart} />
     </div>
   );
 };

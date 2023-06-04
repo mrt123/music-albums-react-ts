@@ -4,6 +4,7 @@ interface Item {
   label: string;
   price: number;
   imageUrl: string | undefined;
+  quantity: number;
 }
 
 interface Props {
@@ -28,6 +29,14 @@ const priceStyle = {
   fontSize: "18px",
 };
 
+const quantityStyle = {
+  display: "inline-block",
+  padding: "10px",
+  color: "white",
+  fontSize: "15px",
+  opacity: "0.7",
+};
+
 const itemWrapperStyle = {
   display: "flex",
   justifyContent: "space-evenly",
@@ -39,6 +48,7 @@ const ShoppingItem = ({ item }: Props) => {
       <ShoopingItemIcon imageUrl={item.imageUrl} />
       <span style={itemLabelStyle}>{item.label}</span>
       <span style={priceStyle}>{item.price}</span>
+      <span style={quantityStyle}>(x{item.quantity})</span>
     </div>
   );
 };
