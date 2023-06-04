@@ -3,8 +3,8 @@ import Album from "../../common/musicAlbum/Album";
 import CircleLoader from "../../common/CircleLoader";
 import PageTitle from "../../common/PageTitle";
 import { getAlbumsFromItunesAlbumData } from "./itunesDataTransformer";
-import { fetchAlbumsData } from "../../state/itunesAlbumsDataSlice";
 import { useAppDispatch, useAppSelector } from "../..";
+import { fetchAlbumsData } from "../../state/itunes";
 
 const ItunesAlbumList = () => {
   const dispatch = useAppDispatch();
