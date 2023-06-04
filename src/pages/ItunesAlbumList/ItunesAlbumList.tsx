@@ -14,9 +14,10 @@ const ItunesAlbumList = () => {
     dispatch(fetchAlbumsData);
   }, [dispatch]);
 
-  const albumData = !albumsData.isLoading
-    ? getAlbumsFromItunesAlbumData(albumsData.dataEntries)
-    : [];
+  const albumData =
+    !albumsData.isLoading && albumsData.dataEntries
+      ? getAlbumsFromItunesAlbumData(albumsData.dataEntries)
+      : [];
 
   const albumComponents = albumData?.map((album) => {
     return (
