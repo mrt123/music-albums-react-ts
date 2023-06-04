@@ -16,20 +16,25 @@ interface ItunesTopAlbumsResponseData {
   };
 }
 
-export const fetchAlbumsData = async (
+export const fetchAlbumsDataWhenNeeded = async (
   dispatch: AppDispatch,
   getState: () => RootState
 ) => {
-  dispatch(albumsSlice.actions.requestData());
+  const state = getState();
+  const dataExists = state.albumsData.dataEntries.length;
 
-  const fetchResponse = await fetch(
-    "https://itunes.apple.com/us/rss/topalbums/limit=100/json"
-  );
+  if (!dataExists) {
+    dispatch(albumsSlice.actions.requestData());
 
-  await addDelay();
+    const fetchResponse = await fetch(
+      "https://itunes.apple.com/us/rss/topalbums/limit=100/json"
+    );
 
-  const fetchedData =
-    (await fetchResponse.json()) as ItunesTopAlbumsResponseData;
+    await addDelay();
 
-  dispatch(albumsSlice.actions.addData(fetchedData.feed.entry));
+    const fetchedData =
+      (await fetchResponse.json()) as ItunesTopAlbumsResponseData;
+
+    dispatch(albumsSlice.actions.addData(fetchedData.feed.entry));
+  }
 };
