@@ -5,17 +5,22 @@ import { AppDispatch, RootState } from "..";
 interface ItunesAlbumsDataState {
   dataEntries: ItunesAlbumDataEntry[];
   isLoading: boolean;
-  dataLastReceivedISOString: string;
+  dataLastReceivedISOString: string | null;
+  numberOfRequestsPerformed: number;
 }
 
 const albumsSlice = createSlice({
   name: "itunesAlbumsData",
   initialState: {
+    dataEntries: [],
     isLoading: false,
+    dataLastReceivedISOString: null,
+    numberOfRequestsPerformed: 0,
   } as ItunesAlbumsDataState,
   reducers: {
     requestData: (state) => {
       state.isLoading = true;
+      state.numberOfRequestsPerformed += 1;
     },
     addData: (state, action: PayloadAction<ItunesAlbumDataEntry[]>) => {
       state.dataEntries = action.payload;

@@ -54,6 +54,7 @@ const Page = () => {
   return (
     <div style={getPageStyle(isBigScreen)}>
       <header style={headerStyle}>
+        <span>{state.numberOfRequestsPerformed.value}</span>
         <Link to="/" style={headerLinkStyle}>
           Music Albums
         </Link>
