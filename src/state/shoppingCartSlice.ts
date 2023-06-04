@@ -16,6 +16,7 @@ interface ShoppingCartItem {
 interface ShoppingCartState {
   items: ShoppingCartItem[];
   numberOfItems: number;
+  totalPrice: number;
 }
 
 const shoppingCartSlice = createSlice({
@@ -23,6 +24,7 @@ const shoppingCartSlice = createSlice({
   initialState: {
     items: [],
     numberOfItems: 0,
+    totalPrice: 0,
   } as ShoppingCartState,
   reducers: {
     addItem: (state, action: PayloadAction<ItemWithoutQuantity>) => {
@@ -38,6 +40,7 @@ const shoppingCartSlice = createSlice({
           quantity: 1,
         });
 
+      state.totalPrice += newItem.price;
       state.numberOfItems++;
     },
   },

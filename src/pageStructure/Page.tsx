@@ -47,8 +47,8 @@ const headerLinkStyle = {
 
 const Page = () => {
   const isBigScreen = useMediaQuery({ query: "(min-width: 800px)" });
-  const shoppingCartItemsLength = useAppSelector(
-    (state) => state.shoppingCart.items.length
+  const numberOfItems = useAppSelector(
+    (state) => state.shoppingCart.numberOfItems
   );
 
   return (
@@ -57,7 +57,7 @@ const Page = () => {
         <Link to="/" style={headerLinkStyle}>
           Music Albums
         </Link>
-        <ShoppingCartIcon numberOfItems={shoppingCartItemsLength} />
+        <ShoppingCartIcon numberOfItems={numberOfItems} />
       </header>
       <NavBar />
       <section style={sectionStyle}>
