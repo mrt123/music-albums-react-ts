@@ -45,16 +45,27 @@ const headerLinkStyle = {
   color: "white",
 };
 
+const requestCounterStyle = {
+  top: "2px",
+  left: "2px",
+  position: "absolute" as "absolute",
+  fontSize: "12px",
+};
+
 const Page = () => {
   const isBigScreen = useMediaQuery({ query: "(min-width: 800px)" });
   const numberOfItems = useAppSelector(
     (state) => state.shoppingCart.numberOfItems
   );
 
+  const numberOfRequests = useAppSelector(
+    (state) => state.albumsData.numberOfRequestsPerformed
+  );
+
   return (
     <div style={getPageStyle(isBigScreen)}>
       <header style={headerStyle}>
-        <span>{state.numberOfRequestsPerformed.value}</span>
+        <span style={requestCounterStyle}>requests: {numberOfRequests}</span>
         <Link to="/" style={headerLinkStyle}>
           Music Albums
         </Link>
