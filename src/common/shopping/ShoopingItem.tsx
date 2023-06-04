@@ -1,3 +1,5 @@
+import { useAppDispatch } from "../..";
+import shoppingCartSlice from "../../state/shoppingCartSlice";
 import ShoopingItemIcon from "./ShoppingItemIcon";
 
 interface Item {
@@ -43,12 +45,19 @@ const itemWrapperStyle = {
 };
 
 const ShoppingItem = ({ item }: Props) => {
+  const dispatch = useAppDispatch();
+
+  const deleteItem = () => {
+    dispatch(shoppingCartSlice.actions.deleteItem(item));
+  };
+
   return (
     <div style={itemWrapperStyle}>
       <ShoopingItemIcon imageUrl={item.imageUrl} />
       <span style={itemLabelStyle}>{item.label}</span>
       <span style={priceStyle}>{item.price}</span>
       <span style={quantityStyle}>(x{item.quantity})</span>
+      <button onClick={deleteItem}>delete</button>
     </div>
   );
 };

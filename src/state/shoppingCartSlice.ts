@@ -43,6 +43,16 @@ const shoppingCartSlice = createSlice({
       state.totalPrice += newItem.price;
       state.numberOfItems++;
     },
+    deleteItem: (state, action: PayloadAction<ShoppingCartItem>) => {
+      const itemToDelete = action.payload;
+      const indexOfItemToDelete = state.items.findIndex(
+        (item) => item.label === itemToDelete.label
+      );
+
+      state.items.splice(indexOfItemToDelete, 1);
+      state.totalPrice -= itemToDelete.price * itemToDelete.quantity;
+      state.numberOfItems -= itemToDelete.quantity;
+    },
   },
 });
 
