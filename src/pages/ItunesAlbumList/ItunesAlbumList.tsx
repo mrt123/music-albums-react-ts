@@ -1,57 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Album from "../../common/musicAlbum/Album";
 import CircleLoader from "../../common/CircleLoader";
 import PageTitle from "../../common/PageTitle";
-import {
-  getAlbumsFromItunesAlbumData,
-  ItunesAlbumDataEntry,
-} from "./itunesDataTransformer";
-import albumsSlice from "../../state/itunesAlbumsDataSlice";
-import { useAppDispatch } from "../..";
-
-const addDelay = () => {
-  return new Promise((resolve) =>
-    setTimeout(() => {
-      resolve(null);
-    }, 1000)
-  );
-};
-
-interface ItunesTopAlbumsResponseData {
-  feed: {
-    entry: ItunesAlbumDataEntry[];
-  };
-}
+import { getAlbumsFromItunesAlbumData } from "./itunesDataTransformer";
+import { fetchAlbumsData } from "../../state/itunesAlbumsDataSlice";
+import { useAppDispatch, useAppSelector } from "../..";
 
 const ItunesAlbumList = () => {
-  const [albumDataEntries, setAlbumDataEntries] = useState<
-    ItunesAlbumDataEntry[] | null
-  >(null);
-
   const dispatch = useAppDispatch();
+  const albumsData = useAppSelector((state) => state.albumsData);
 
   useEffect(() => {
-    const fetchAndSetAlbums = async () => {
-      dispatch(albumsSlice.actions.requestData());
-
-      const fetchResponse = await fetch(
-        "https://itunes.apple.com/us/rss/topalbums/limit=100/json"
-      );
-
-      await addDelay();
-
-      const fetchedData =
-        (await fetchResponse.json()) as ItunesTopAlbumsResponseData;
-
-      dispatch(albumsSlice.actions.addData(fetchedData.feed.entry));
-      setAlbumDataEntries(fetchedData.feed.entry);
-    };
-
-    fetchAndSetAlbums();
+    dispatch(fetchAlbumsData);
   }, [dispatch]);
 
-  const albumData = albumDataEntries
-    ? getAlbumsFromItunesAlbumData(albumDataEntries)
+  const albumData = !albumsData.isLoading
+    ? getAlbumsFromItunesAlbumData(albumsData.dataEntries)
     : [];
 
   const albumComponents = albumData?.map((album) => {
@@ -68,7 +32,7 @@ const ItunesAlbumList = () => {
   return (
     <>
       <PageTitle title="Top Albums" />
-      <CircleLoader show={albumDataEntries === null} />
+      <CircleLoader show={albumsData.isLoading} />
       {albumComponents}
     </>
   );
