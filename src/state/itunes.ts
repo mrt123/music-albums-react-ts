@@ -16,14 +16,32 @@ interface ItunesTopAlbumsResponseData {
   };
 }
 
+const getSecondsSinceLastRequest = (
+  lastReceivedDateString: string | null
+): number | null => {
+  if (lastReceivedDateString === null) return null;
+  const dateOfLastRequest = new Date(lastReceivedDateString);
+  const now = new Date();
+  const milisecondsSinceLastRequest =
+    now.getTime() - dateOfLastRequest.getTime();
+  const secondsSinceLastRequest = milisecondsSinceLastRequest / 1000;
+  return secondsSinceLastRequest;
+};
+
 export const fetchAlbumsDataWhenNeeded = async (
   dispatch: AppDispatch,
   getState: () => RootState
 ) => {
   const state = getState();
   const dataExists = state.albumsData.dataEntries.length;
+  const secondsSinceLastRequest = getSecondsSinceLastRequest(
+    state.albumsData.dataLastReceivedISOString
+  );
 
-  if (!dataExists) {
+  if (
+    !dataExists ||
+    (secondsSinceLastRequest !== null && secondsSinceLastRequest > 15)
+  ) {
     dispatch(albumsSlice.actions.requestData());
 
     const fetchResponse = await fetch(
